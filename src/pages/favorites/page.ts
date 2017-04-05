@@ -20,8 +20,8 @@ export class FavoritesPage {
         return strings;
     }
 
-    public constructor(private dao: FavoritesDAO) {
-        Analytics.trackView('FavoritesPage');
+    public constructor(private dao: FavoritesDAO, analytics: Analytics) {
+        analytics.trackView('FavoritesPage');
     }
 
     /**

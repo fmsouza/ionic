@@ -1,5 +1,5 @@
 import { HIDE_TRAJECTORY_KEY, ENABLE_SWAP_DIRECTION } from '../../const';
-import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import { GoogleMap, GoogleMapsEvent } from '@ionic-native/google-maps';
 import { Platform } from 'ionic-angular';
 import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';

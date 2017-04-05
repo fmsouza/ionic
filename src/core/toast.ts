@@ -1,4 +1,5 @@
 import { Platform } from 'ionic-angular';
+import { Toast as ToastModule } from '@ionic-native/toast';
 import { Injectable } from '@angular/core';
 
 declare var window: any;
@@ -14,7 +15,7 @@ export class Toast {
     public static SHORT: string = 'short';
     public static LONG: string = 'long';
 
-    public constructor(private platform: Platform) {}
+    public constructor(private platform: Platform, private toast: ToastModule) {}
 
     /**
      * Shows the message over the screen
@@ -24,6 +25,6 @@ export class Toast {
      */
     public show(text: string, duration: string): void {
         this.platform.ready()
-            .then(() => window.plugins.toast.show(text, duration, 'bottom'));
+            .then(() => this.toast.show(text, duration, 'bottom'));
     }
 }

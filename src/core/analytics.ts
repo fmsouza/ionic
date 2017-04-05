@@ -1,4 +1,5 @@
-import { GoogleAnalytics } from 'ionic-native';
+import { Injectable } from '@angular/core';
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
 import { ANALYTICS_UA, DEBUG_MODE } from '../const';
 
 /**
@@ -6,7 +7,10 @@ import { ANALYTICS_UA, DEBUG_MODE } from '../const';
  * 
  * @class Analytics
  */
+@Injectable()
 export class Analytics {
+
+    constructor(private ga: GoogleAnalytics) {}
 
     /**
      * Configures Analytics driver
@@ -14,10 +18,10 @@ export class Analytics {
      * @static
      * @returns {Promise<void>}
      */
-    public static configure(): Promise<void> {
-        return GoogleAnalytics.startTrackerWithId(ANALYTICS_UA)
-            .then(() => GoogleAnalytics.enableUncaughtExceptionReporting(true), console.error)
-            .then(() => { if (DEBUG_MODE) GoogleAnalytics.debugMode(); }, console.error);
+    public configure(): Promise<void> {
+        return this.ga.startTrackerWithId(ANALYTICS_UA)
+            .then(() => this.ga.enableUncaughtExceptionReporting(true), console.error)
+            .then(() => { if (DEBUG_MODE) this.ga.debugMode(); }, console.error);
     }
 
     /**
@@ -29,8 +33,8 @@ export class Analytics {
      * @static
      * @returns {Promise<void>}
      */
-    public static trackView(title: string, campaignUrl?: string): Promise<void> {
-        return GoogleAnalytics.trackView(title, campaignUrl)
+    public trackView(title: string, campaignUrl?: string): Promise<void> {
+        return this.ga.trackView(title, campaignUrl)
             .then(console.log, console.error);
     }
 
@@ -44,8 +48,8 @@ export class Analytics {
      * @static
      * @returns {Promise<void>}
      */
-    public static trackEvent(category: string, action: string, label?: string, value?: number): Promise<void> {
-        return GoogleAnalytics.trackEvent(category, action, label, value)
+    public trackEvent(category: string, action: string, label?: string, value?: number): Promise<void> {
+        return this.ga.trackEvent(category, action, label, value)
             .then(console.log, console.error);
     }
 
@@ -56,7 +60,7 @@ export class Analytics {
      * @static
      * @returns {void}
      */
-    public static setUserId(id: string): void {
-        GoogleAnalytics.setUserId(id);
+    public setUserId(id: string): void {
+        this.ga.setUserId(id);
     }
 }

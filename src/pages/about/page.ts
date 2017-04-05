@@ -15,7 +15,7 @@ export class AboutPage {
         return strings;
     }
 
-    public constructor() {
-        Analytics.trackView('AboutPage');
+    public constructor(analytics: Analytics) {
+        analytics.trackView('AboutPage');
     }
 }

@@ -19,10 +19,6 @@ import strings from '../../strings';
 })
 export class MapPage {
 
-    private params: NavParams;
-    private service: SearchService;
-    private manager: ItineraryManager;
-    private toast: Toast;
     private timer: any;
     public buses: Bus[];
     public line: Line;
@@ -33,12 +29,7 @@ export class MapPage {
         return strings;
     }
 
-    public constructor(params: NavParams, service: SearchService, manager: ItineraryManager, toast: Toast) {
-        this.params = params;
-        this.service = service;
-        this.manager = manager;
-        this.toast = toast;
-
+    public constructor(private params: NavParams, private service: SearchService, private manager: ItineraryManager, private toast: Toast, analytics: Analytics) {
         if (this.params.data.line) {
             this.line = this.params.data.line;
             this.title = this.line.Line;
@@ -46,7 +37,7 @@ export class MapPage {
         else if (this.params.data.query) {
             this.title = this.params.data.query;
         }
-        Analytics.trackView('MapPage');
+        analytics.trackView('MapPage');
     }
 
     /**

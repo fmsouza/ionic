@@ -30,8 +30,8 @@ export class SearchPage {
         return strings;
     }
 
-    public constructor(private nav: NavController, private manager: LineManager, private hdao: HistoryDAO, private fdao: FavoritesDAO) {
-        Analytics.trackView('SearchPage');
+    public constructor(private nav: NavController, private manager: LineManager, private hdao: HistoryDAO, private fdao: FavoritesDAO, private analytics: Analytics) {
+        this.analytics.trackView('SearchPage');
     }
 
     /**
@@ -85,7 +85,7 @@ export class SearchPage {
      * @return {void}
      */
     public onSubmit(event: Event): void {
-        Analytics.trackEvent('searchbox', 'submit');
+        this.analytics.trackEvent('searchbox', 'submit');
         let query: string = this.searchBox.value;
         if (query.length > 0) {
             if (this.itemsBkp.length === 0) this.itemsBkp = this.items;
@@ -109,7 +109,7 @@ export class SearchPage {
      * @return {void}
      */
     public showSearchBar(): void {
-        Analytics.trackEvent('searchbox', 'show');
+        this.analytics.trackEvent('searchbox', 'show');
         this.showSearchBox = true;
         setTimeout(() => {
             this.searchBox.focus();
@@ -122,7 +122,7 @@ export class SearchPage {
      * @return {void}
      */
     public hideSearchBar(): void {
-        Analytics.trackEvent('searchbox', 'hide');
+        this.analytics.trackEvent('searchbox', 'hide');
         if (this.searchBox.value.length > 0) {
             this.searchBox.value = '';
             this.onSubmit(null);

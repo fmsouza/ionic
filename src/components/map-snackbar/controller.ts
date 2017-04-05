@@ -23,6 +23,8 @@ export class MapSnackbar implements OnInit {
         return strings;
     }
 
+    public constructor(private analytics: Analytics) {}
+
     /**
      * Part of Ionic lifecycle. Runs when the component is initialized.
      * @return {void}
@@ -40,7 +42,7 @@ export class MapSnackbar implements OnInit {
      * @return {void}
      */
     public onToggleDirection(): void {
-        Analytics.trackEvent('Toggle direction button', 'click');
+        this.analytics.trackEvent('Toggle direction button', 'click');
         let toggle: boolean = this.swapDirection(); // Method from MapPage
         if (toggle) {
             let tmp: string = this.coming;

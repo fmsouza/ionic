@@ -19,8 +19,8 @@ export class HistoryPage {
         return strings;
     }
 
-    public constructor(private dao: HistoryDAO) {
-        Analytics.trackView('HistoryPage');
+    public constructor(private dao: HistoryDAO, analytics: Analytics) {
+        analytics.trackView('HistoryPage');
     }
 
     /**
