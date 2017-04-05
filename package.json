@@ -63,6 +63,7 @@
     "karma-webpack": "2.0.3",
     "null-loader": "0.1.1",
     "ts-loader": "2.0.3",
+    "tslint": "4.0.0",
     "typescript": "2.2.2"
   },
   "cordovaPlugins": [

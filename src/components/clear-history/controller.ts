@@ -20,7 +20,7 @@ export class ClearHistory {
         return strings;
     }
 
-    public constructor(private ctrl: AlertController, private dao: HistoryDAO) {}
+    public constructor(private ctrl: AlertController, private dao: HistoryDAO, private analytics: Analytics) {}
 
     /**
      * Called when a HTML element with 'clear-history' directive is clicked. <br/>
@@ -29,7 +29,7 @@ export class ClearHistory {
      */
     @HostListener('click', ['$event.target'])
     public onClick(): void {
-        Analytics.trackEvent('Clear History', 'click', 'button');
+        this.analytics.trackEvent('Clear History', 'click', 'button');
         let confirm: Alert = this.ctrl.create({
             title: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_TITLE,
             message: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE,

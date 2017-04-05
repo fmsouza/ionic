@@ -6,7 +6,7 @@ import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
 import { Analytics } from '../../core/analytics';
-import { Keyboard } from 'ionic-native';
+import { Keyboard } from '@ionic-native/keyboard';
 import { FEED_SLICE_LIMIT } from '../../const';
 import strings from '../../strings';
 /**
@@ -30,7 +30,7 @@ export class SearchPage {
         return strings;
     }
 
-    public constructor(private nav: NavController, private manager: LineManager, private hdao: HistoryDAO, private fdao: FavoritesDAO, private analytics: Analytics) {
+    public constructor(private nav: NavController, private manager: LineManager, private hdao: HistoryDAO, private fdao: FavoritesDAO, private analytics: Analytics, private keyboard: Keyboard) {
         this.analytics.trackView('SearchPage');
     }
 
@@ -113,7 +113,7 @@ export class SearchPage {
         this.showSearchBox = true;
         setTimeout(() => {
             this.searchBox.focus();
-            Keyboard.show();
+            this.keyboard.show();
         }, 1);
     }
 

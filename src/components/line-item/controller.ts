@@ -23,14 +23,14 @@ export class LineItem {
 
     @Input() public line: Line;
 
-    public constructor(private nav: NavController, private dao: HistoryDAO) {}
+    public constructor(private nav: NavController, private dao: HistoryDAO, private analytics: Analytics) {}
 
     /**
      * Handles the click event over the history content row
      * @return {void}
      */
     public onClick(): void {
-        Analytics.trackEvent('LineItem', 'click', this.line.Line);
+        this.analytics.trackEvent('LineItem', 'click', this.line.Line);
         let history: History = new History(this.line, new Date());
         this.dao.save(history).then(saved => {
             if (saved) console.log(`Saved ${this.line.Line} to history.`);
