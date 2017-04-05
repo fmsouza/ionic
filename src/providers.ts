@@ -1,3 +1,5 @@
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import {PreferencesDAO} from './dao/preferences';
 import {LinesDAO} from './dao/lines';
 import {HistoryDAO} from './dao/history';
@@ -11,6 +13,8 @@ import {ItineraryService} from './services/itinerary';
 import {SearchService} from './services/search';
 
 export const Providers: any = [
+    SplashScreen,
+    StatusBar,
     ItineraryService,
     SearchService,
     ItineraryManager,

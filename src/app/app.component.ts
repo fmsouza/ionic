@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { Splashscreen, StatusBar } from 'ionic-native';
-import { DEFAULT_PAGE, MenuItem, DrawerLinks } from '../components';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { DEFAULT_PAGE, DrawerLinks, MenuItem } from '../components';
 import strings from '../strings';
 
 @Component({
@@ -23,15 +24,15 @@ export class Application {
     // the login page disables the left menu
     public pages: MenuItem[] = DrawerLinks;
 
-    public constructor(platform: Platform) {
+    public constructor(platform: Platform, private splashscreen: SplashScreen, private statusbar: StatusBar) {
         platform.ready().then(() => this.onReady());
     }
 
     private onReady(): void {
         // Okay, so the platform is ready and our plugins are available.
         // Here you can do any higher level native things you might need.
-        StatusBar.styleDefault();
-        Splashscreen.hide();
+        this.statusbar.styleDefault();
+        this.splashscreen.hide();
     }
 
     /**

@@ -1,5 +1,6 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
+$ionicons-font-path: "../assets/fonts";
 @import "ionic.globals";
 
 
@@ -31,7 +32,7 @@ $colors: (
   dark:       #222222,
   favorite:   #69BB7B,
   golden:     #f2af29,
-  gray:       #666666
+  gray:     #666666
 );
 
 
@@ -91,5 +92,13 @@ $text-wp-color:                           #000;
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/v2/ionicons/
 
-$ionicons-font-path: "../assets/fonts";
-@import "ionicons";
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+// Roboto font is used by default for Material Design. Noto sans
+// is used by default for Windows.
+
+@import "roboto";
+@import "noto-sans";

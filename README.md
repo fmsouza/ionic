@@ -1,6 +1,6 @@
 # Rio Bus hybrid android app
 
-This is the RioBus' geolocation app built with Ionic2 + TypeScript + Karma + Protractor.
+This is RioBus' geolocation app built with Ionic 2 + TypeScript + Karma
 
 ## Table of Contents
  - [Install Node.js](#install-nodejs)
@@ -9,7 +9,6 @@ This is the RioBus' geolocation app built with Ionic2 + TypeScript + Karma + Pro
  - [Run in Android](#run-in-android)
  - [Run in iOS](#run-in-ios)
  - [Run Unit Tests](#run-unit-tests)
- - [Run E2E](#run-e2e)
  - [Contribute](#contribute)
  - [Acknowledges](#acknowledges)
 
@@ -38,28 +37,19 @@ npm start         # deploys the the browser
 ```bash
 # make sure the Android device is connected and available to ADB
 
-npm run android   # deploys the app to an Android device
+npm run android   # deploys the app to an Android device or emulator
 ```
 
 ## Run in iOS
 ```bash
 # make sure the iOS device is connected
 
-npm run ios       # deploys the app to an iOS device
+npm run ios       # deploys the app to an iOS device or simulator
 ```
 
 ## Run Unit Tests
 ```bash
 npm test          # run unit tests
-```
-
-## Run E2E
-```bash
-# e2e (aka. end-to-end, integration) - In two different shell windows
-# Make sure you don't have a global instance of Protractor
-
-npm start
-npm run e2e
 ```
 
 ## Contribute
