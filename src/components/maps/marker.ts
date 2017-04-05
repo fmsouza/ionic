@@ -1,4 +1,4 @@
-import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
+import { GoogleMap, MarkerOptions, Marker, LatLng } from '@ionic-native/google-maps';
 import { ColorUtils } from '../../core/utils';
 import { Bus } from '../../models/bus';
 import { Itinerary, Spot } from '../../models/itinerary';
@@ -26,8 +26,8 @@ export class MarkerController {
 
     private map: GoogleMap;
     private markers: any = {};
-    private locations: GoogleMapsMarker[] = [];
-    private trajectory: GoogleMapsPolyline;
+    private locations: Marker[] = [];
+    private trajectory: any;
 
     public constructor(map: GoogleMap) {
         this.map = map;
@@ -59,7 +59,7 @@ export class MarkerController {
      * @return {void}
      */
     public showTrajectory(trajectory: Itinerary): void {
-        let positions: GoogleMapsLatLng[] = [];
+        let positions: LatLng[] = [];
         let spotFrom: Spot = null, spotTo: Spot = null;
         trajectory.Spots.forEach(spot => {
             if (!spot.isReturning) {
@@ -67,7 +67,7 @@ export class MarkerController {
                 if (!spotFrom) spotFrom = spot;
                 else spotTo = spot;
             }
-            positions.push(new GoogleMapsLatLng(spot.Latitude, spot.Longitude));
+            positions.push(new LatLng(spot.Latitude, spot.Longitude));
         });
 
         // Random color to set in the start/end markers and the trajectory
@@ -82,7 +82,7 @@ export class MarkerController {
             }).then(markerTo => this.markers['to'] = markerTo);
         }
         this.map.addPolyline(this.getTrajectoryConfiguration(positions, color))
-            .then( (polyline: GoogleMapsPolyline) => this.trajectory = polyline);
+            .then( (polyline: any) => this.trajectory = polyline);
     }
 
     /**
@@ -100,7 +100,7 @@ export class MarkerController {
      * @return {void}
      */
     private updatePosition(bus: Bus): void {
-        this.markers[bus.Order].setPosition(new GoogleMapsLatLng(bus.Latitude, bus.Longitude));
+        this.markers[bus.Order].setPosition(new LatLng(bus.Latitude, bus.Longitude));
     }
 
     /**
@@ -109,10 +109,10 @@ export class MarkerController {
      * @param {Bus} bus - Bus instance
      * @return {void}
      */
-    private addMarker(bus: Bus, marker: GoogleMapsMarker): void {
+    private addMarker(bus: Bus, marker: Marker): void {
         this.markers[bus.Order] = marker;
         this.fitBounds(marker);
-        // marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
+        // marker.getPosition().then((latLng: LatLng) => this.fitBounds(latLng));
     }
 
     /**
@@ -129,22 +129,22 @@ export class MarkerController {
     /**
      * @private
      * Gets the configuration of the trajectory polyline
-     * @param {GoogleMapsLatLng[]} points - trajectory points in the map
-     * @return {GoogleMapsPolylineOptions}
+     * @param {LatLng[]} points - trajectory points in the map
+     * @return {any}
      */
-    private getTrajectoryConfiguration(points: GoogleMapsLatLng[], color: string): GoogleMapsPolylineOptions {
-        return { points: points, color : color, width: 6, zIndex: 4 };
+    private getTrajectoryConfiguration(points: LatLng[], color: string): any {
+        return { points, color, width: 6, zIndex: 4 };
     }
 
     /**
      * @private
      * Gets the configuration of the Bus marker
      * @param {Bus} bus - Bus instance
-     * @return {GoogleMapsMarkerOptions}
+     * @return {MarkerOptions}
      */
-    private getMarkerData(bus: Bus): GoogleMapsMarkerOptions {
+    private getMarkerData(bus: Bus): MarkerOptions {
         return {
-            position: new GoogleMapsLatLng(bus.Latitude, bus.Longitude),
+            position: new LatLng(bus.Latitude, bus.Longitude),
             icon: { url: this.getIconPath(bus.Timestamp), size: { width: BusIcon.WIDTH, height: BusIcon.HEIGHT } },
             title: this.formatInfoWindow(bus),
         };
@@ -155,22 +155,24 @@ export class MarkerController {
      * Gets the configuration of the start/end trajectory spot markers
      * @param {Spot} spot - Start/end Spot instance
      * @param {boolean} returning - Is this position part of returning trajectory or not?
-     * @return {GoogleMapsMarkerOptions}
+     * @param {string} icon - Icon color
+     * @return {MarkerOptions}
      */
-    private getMarkerSpotData(spot: Spot, returning: boolean, color: string): GoogleMapsMarkerOptions {
-        let obj: any = { position: new GoogleMapsLatLng(spot.Latitude, spot.Longitude) };
-        obj.title = (!returning) ? 'PONTO INICIAL' : 'PONTO FINAL';
-        obj.icon = color;
-        return obj;
+    private getMarkerSpotData(spot: Spot, returning: boolean, icon: string): MarkerOptions {
+        return {
+            position: new LatLng(spot.Latitude, spot.Longitude),
+            title: (!returning) ? 'PONTO INICIAL' : 'PONTO FINAL',
+            icon
+        };
     }
 
     /**
      * @private
      * Fits the current position to the view and recentralize the camera
-     * @param {GoogleMapsMarker} location - New marker
+     * @param {Marker} location - New marker
      * @return {void}
      */
-    private fitBounds(location: GoogleMapsMarker): void {
+    private fitBounds(location: Marker): void {
         this.locations.push(location);
         this.map.animateCamera({ target: this.locations });
     }

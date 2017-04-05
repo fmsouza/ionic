@@ -1,15 +1,15 @@
-import {FavoriteButton} from './components/favorite-button/controller';
-import {HistoryDropdownList} from './components/history-dropdown-list/controller';
-import {LineItem} from './components/line-item/controller';
-import {MapSnackbar} from './components/map-snackbar/controller';
-import {GoogleMapsComponent} from './components/maps/controller';
-import {FEEDBACK_MAIL, FEEDBACK_SUBJECT, URL_FB_PAGE, URL_PLAY_STORE} from './const';
-import {AboutPage} from './pages/about/page';
-import {FavoritesPage} from './pages/favorites/page';
-import {HistoryPage} from './pages/history/page';
-import {MapPage} from './pages/map/page';
-import {SearchPage} from './pages/search/page';
-import {SettingsPage} from './pages/settings/page';
+import { FavoriteButton } from './components/favorite-button/controller';
+import { HistoryDropdownList } from './components/history-dropdown-list/controller';
+import { LineItem } from './components/line-item/controller';
+import { MapSnackbar } from './components/map-snackbar/controller';
+import { GoogleMaps } from './components/maps/controller';
+import { FEEDBACK_MAIL, FEEDBACK_SUBJECT, URL_FB_PAGE, URL_PLAY_STORE } from './const';
+import { AboutPage } from './pages/about/page';
+import { FavoritesPage } from './pages/favorites/page';
+import { HistoryPage } from './pages/history/page';
+import { MapPage } from './pages/map/page';
+import { SearchPage } from './pages/search/page';
+import { SettingsPage } from './pages/settings/page';
 import strings from './strings';
 
 export const DEFAULT_PAGE: any = SearchPage;
@@ -25,7 +25,7 @@ export const Components: any = [
     HistoryDropdownList,
     LineItem,
     MapSnackbar,
-    GoogleMapsComponent,
+    GoogleMaps,
 ];
 
 export interface MenuItem {

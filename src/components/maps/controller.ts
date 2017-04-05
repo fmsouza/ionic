@@ -1,5 +1,5 @@
 import { HIDE_TRAJECTORY_KEY, ENABLE_SWAP_DIRECTION } from '../../const';
-import { GoogleMap, GoogleMapsEvent } from '@ionic-native/google-maps';
+import { GoogleMap, GoogleMapsEvent, LatLng } from '@ionic-native/google-maps';
 import { Platform } from 'ionic-angular';
 import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';
@@ -11,33 +11,31 @@ import { PreferencesManager } from '../../managers/preferences';
 const mapConfig: any =  {
     mapType: 'MAP_TYPE_NORMAL',
     controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
-    camera: { latLng: new GoogleMapsLatLng(-22.9083, -43.1964), zoom: 12 },
+    camera: { latLng: new LatLng(-22.9083, -43.1964), zoom: 12 },
 };
 
 /**
  * Represents the <google-maps> HTML component.
- * @class {GoogleMapsComponent}
+ * @class {GoogleMaps}
  */
 @Component({
     selector: 'google-maps',
     templateUrl: 'template.html',
     inputs: ['markers', 'line', 'trajectory'],
 })
-export class GoogleMapsComponent implements OnChanges, OnDestroy {
+export class GoogleMaps implements OnChanges, OnDestroy {
 
     private map: GoogleMap;
     private mcontrol: MarkerController;
     private swap: boolean = false;
-    private static instance: GoogleMapsComponent;
+    private static instance: GoogleMaps;
     public markers: Bus[];
     public trajectory: Itinerary;
     public line: Line;
     public swapable: boolean = ENABLE_SWAP_DIRECTION;
-    public preferences: PreferencesManager;
 
-    public constructor(platform: Platform, prefs: PreferencesManager) {
-        this.preferences = prefs;
-        GoogleMapsComponent.instance = this;
+    public constructor(platform: Platform, public prefs: PreferencesManager) {
+        GoogleMaps.instance = this;
         platform.ready().then(() => this.onPlatformReady());
     }
 
@@ -89,7 +87,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
      */
     public onSwapDirection(): boolean {
         if (this.swapable) {
-            let self: GoogleMapsComponent = GoogleMapsComponent.instance;
+            let self: GoogleMaps = GoogleMaps.instance;
             if (self.line.Description !== 'desconhecido') {
                 self.swap = !self.swap;
                 self.removeMarkers();
@@ -109,7 +107,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private onTrajectoryChanges(trajectory: any): void {
         if (this.trajectory) {
             this.mcontrol.hideTrajectory();
-            this.preferences.getKey<boolean>(HIDE_TRAJECTORY_KEY).then( enabled => {
+            this.prefs.getKey<boolean>(HIDE_TRAJECTORY_KEY).then( enabled => {
                 if (!enabled) this.mcontrol.showTrajectory(this.trajectory);
             });
         }
