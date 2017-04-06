@@ -9,6 +9,7 @@ import { Analytics } from '../../core/analytics';
 import { Keyboard } from '@ionic-native/keyboard';
 import { FEED_SLICE_LIMIT } from '../../const';
 import strings from '../../strings';
+
 /**
  * SearchPage represents the search view in the app.
  * @class {SearchPage}
@@ -36,7 +37,7 @@ export class SearchPage {
 
     /**
      * Checks if the given line is favorite.
-     * @param {string} line - line identifier
+     * @param {Line} line - line instance
      * @return {boolean}
      */
     public isFavorite(line: Line): boolean {
