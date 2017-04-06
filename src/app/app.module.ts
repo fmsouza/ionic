@@ -4,23 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { Components } from '../components';
+import { EntryComponents, CommonComponents } from '../components';
 import { Providers } from '../providers';
-
-const COMPONENTS: any = [
-    Application,
-    ...Components
-];
 
 const PROVIDERS: any = [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Storage,
     ...Providers
 ];
 
 @NgModule({
-    declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
+    declarations: [ Application, ...EntryComponents, ...CommonComponents ],
+    entryComponents: [ Application, ...EntryComponents ],
     imports: [
         BrowserModule,
         HttpModule,

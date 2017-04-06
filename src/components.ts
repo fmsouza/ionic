@@ -10,11 +10,16 @@ import { HistoryPage } from './pages/history/page';
 import { MapPage } from './pages/map/page';
 import { SearchPage } from './pages/search/page';
 import { SettingsPage } from './pages/settings/page';
+import { ClearHistory } from './components/clear-history/controller';
 import strings from './strings';
 
 export const DEFAULT_PAGE: any = SearchPage;
 
-export const Components: any = [
+export const CommonComponents: any = [
+    ClearHistory,
+];
+
+export const EntryComponents: any = [
     SearchPage,
     FavoritesPage,
     HistoryPage,
